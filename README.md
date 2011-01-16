@@ -4,4 +4,6 @@
 
 Outputs a string suitable for use as an element's innerHTML: "Winning, I dunno the &quot;&lt;3&quot; contest maybe?"
 
-So it's kind of like mustache.js loses to printf without the 'f' or...something. But it's small (~1kB before minification)!
+So it's kind of like mustache.js loses to printf without the 'f' or...something. But it's small! (~1kB before minification)
+
+[Mustache]: http://mustache.github.com/
