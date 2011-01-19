@@ -10,6 +10,7 @@ var Flatstache = {
     _escapeHTML: function(s) {
         return s.replace(Flatstache._re1, function(c) { return Flatstache._escape_hash[c] || c; });
     }
+};
 Flatstache.to_html = function (template, data) {
     return template
         .replace(Flatstache._re3, function (m, key) { return data[key] || ""; })
