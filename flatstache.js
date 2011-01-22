@@ -1,6 +1,6 @@
 /*
  flatstache.js - Logic-less, section-less templates in JavaScript. Expands simple (flat) Mustache templates.
- (c) 2011 Nathan Vander Wilt. MIT license.
+ (c) 2011 Nathan Vander Wilt and Aaron McCall. MIT license.
 */
 var Flatstache = (function(){
     var _re3 = /{{{\s*(\w+)\s*}}}/g,
