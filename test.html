@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Flatsta&#99;he tester</title>
+<style>
+ins { text-decoration: none; }
+.happy { color: green; }
+.crappy { color: red; }
+</style>
+</head>
+<body>
+<del><img src="http://i251.photobucket.com/albums/gg302/foroseparados/bigote.jpg" style="height: 150px;"> Mustache</del>
+<ins><img src="http://www.dailyhaha.com/_pics/amazing_mustache.jpg" style="height: 150px;"> Flatstache</ins>
+<div id="test_log"></div>
+<script src="flatstache.js"></script>
+<script>
+var test_log = document.getElementById('test_log');
+function log(msg, isHappy) {
+    var div = document.createElement("div");
+    div.className = (isHappy) ? 'happy' : 'crappy';
+    div.innerText = msg;
+    test_log.appendChild(div);
+}
+
+var tests = [
+    {name:"README example", template:"{{test}}{{{ing}}}, {{what}}{{not}}", data:{test:'Win', ing:'ning', what: "I dunno the \"<3\" contest maybe?"}, result: "Winning, I dunno the &quot;&lt;3&quot; contest maybe?"},
+    {name:"Not too much escaping", template:"<!-- {{{no_escape}}} {{entity_laden}} -->", data:{no_escape:"<h1>I shaved off my:</h1>", entity_laden:"&amp;&#39;&#115;&#116;&#97;&#99;&#104;&#101;"}, result: "<!-- <h1>I shaved off my:</h1> &amp;&amp;#39;&amp;#115;&amp;#116;&amp;#97;&amp;#99;&amp;#104;&amp;#101; -->"},
+    {name:"Not too little escaping", template:" {{x}} ", data:{x:'&\\"'+"'<>"}, result: " &amp;&#92;&quot;&#39;&lt;&gt; "},
+    {name:"As if.", template:"{{#section}}{{fail}}{{/section}}", data:{fail:"FAIL"}, result: "{{#section}}FAIL{{/section}}"},
+];
+
+tests.forEach(function (test) {
+    var result = Flatstache.to_html(test.template, test.data);
+    if (result === test.result) {
+        log("PASS: " + test.name, true);
+    } else {
+        log("FAIL: " + test.name, false);
+        log("    expected: " + test.result, false);
+        log("         got: " + result, false);
+    }
+});
+
+</script>
+</body>
+</html>
