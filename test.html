@@ -25,7 +25,7 @@ function log(msg, isHappy) {
 
 var tests = [
     {name:"README example", template:"{{test}}{{{ing}}}, {{what}}{{not}}", data:{test:'Win', ing:'ning', what: "I dunno the \"<3\" contest maybe?"}, result: "Winning, I dunno the &quot;&lt;3&quot; contest maybe?"},
-    {name:"Not too much escaping", template:"<!-- {{{no_escape}}} {{entity_laden}} -->", data:{no_escape:"<h1>I shaved off my:</h1>", entity_laden:"&amp;&#39;&#115;&#116;&#97;&#99;&#104;&#101;"}, result: "<!-- <h1>I shaved off my:</h1> &amp;&amp;#39;&amp;#115;&amp;#116;&amp;#97;&amp;#99;&amp;#104;&amp;#101; -->"},
+    {name:"Not too much escaping", template:"<!-- {{{no_escape}}} {{entity_laden}} -->", data:{no_escape:"<h1>I shaved off my:</h1>", entity_laden:"&amp;&#39;&#115;&#116;&#97;&#99;&#104;&#101;"}, result: "<!-- <h1>I shaved off my:</h1> &amp;amp;&amp;#39;&amp;#115;&amp;#116;&amp;#97;&amp;#99;&amp;#104;&amp;#101; -->"},
     {name:"Not too little escaping", template:" {{x}} ", data:{x:'&\\"'+"'<>"}, result: " &amp;&#92;&quot;&#39;&lt;&gt; "},
     {name:"As if.", template:"{{#section}}{{fail}}{{/section}}", data:{fail:"FAIL"}, result: "{{#section}}FAIL{{/section}}"},
 ];

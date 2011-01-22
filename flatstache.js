@@ -5,10 +5,10 @@
 var Flatstache = (function(){
     var _re3 = /{{{\s*(\w+)\s*}}}/g,
         _re2 = /{{\s*(\w+)\s*}}/g,
-        _re1 = /&(?!\w+;)|[\"'<>\\]/g,  // "
+        _re1 = /[&\"'<>\\]/g,  // "
         _escape_map = {"&": "&amp;", "\\": "&#92;", "\"": "&quot;", "'": "&#39;", "<": "&lt;", ">": "&gt;"},
         _escapeHTML = function(s) {
-            return s.replace(_re1, function(c) { return _escape_map[c] || c; });
+            return s.replace(_re1, function(c) { return _escape_map[c]; });
         },
         pub = {};
     pub.to_html = function (template, data) {
