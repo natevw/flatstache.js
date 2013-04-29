@@ -4,9 +4,12 @@
 <meta charset="utf-8">
 <title>Flatsta&#99;he tester</title>
 <style>
-ins { text-decoration: none; }
-.happy { color: green; }
-.crappy { color: red; }
+  body {
+    font-size: 12pt;
+  }
+  ins { text-decoration: none; }
+  .happy { color: #090; }
+  .crappy { color: #900; }
 </style>
 </head>
 <body>
@@ -15,22 +18,58 @@ ins { text-decoration: none; }
 <div id="test_log"></div>
 <script src="flatstache.js"></script>
 <script>
-var test_log = document.getElementById('test_log');
+var test_log = document.getElementById('test_log'),
+    textAttr =  ('innerText' in document.createElement("div")) ? 'innerText' :  'textContent';
 function log(msg, isHappy) {
-    var div = document.createElement("div");
+    var div = document.createElement("div")
+        pre = document.createElement("pre");    
     div.className = (isHappy) ? 'happy' : 'crappy';
-    div.innerText = msg;
+    pre[textAttr] = msg || "NO MSG";
+    div.appendChild(pre);
     test_log.appendChild(div);
 }
 
 var tests = [
-    {name:"README example", template:"{{test}}{{{ing}}}, {{what}}{{not}}", data:{test:'Win', ing:'ning', what: "I dunno the \"<3\" contest maybe?"}, result: "Winning, I dunno the &quot;&lt;3&quot; contest maybe?"},
-    {name:"Not too much escaping", template:"<!-- {{{no_escape}}} {{entity_laden}} -->", data:{no_escape:"<h1>I shaved off my:</h1>", entity_laden:"&amp;&#39;&#115;&#116;&#97;&#99;&#104;&#101;"}, result: "<!-- <h1>I shaved off my:</h1> &amp;amp;&amp;#39;&amp;#115;&amp;#116;&amp;#97;&amp;#99;&amp;#104;&amp;#101; -->"},
-    {name:"Not too little escaping", template:" {{x}} ", data:{x:'&\\"'+"'<>"}, result: " &amp;&#92;&quot;&#39;&lt;&gt; "},
-    {name:"As if.", template:"{{#section}}{{fail}}{{/section}}", data:{fail:"FAIL"}, result: "{{#section}}FAIL{{/section}}"},
+    {
+      name:"README example", 
+      template:"{{test}}{{{ing}}}, {{what}}{{not}}", 
+      data:{
+        test:'Win', 
+        ing:'ning', 
+        what: "I dunno the \"<3\" contest maybe?"
+      }, 
+      result: "Winning, I dunno the &quot;&lt;3&quot; contest maybe?"
+    },
+    {
+      name:"Not too much escaping", 
+      template:"<!-- {{{no_escape}}} {{entity_laden}} -->", 
+      data:{
+        no_escape:"<h1>I shaved off my:</h1>", 
+        entity_laden:"&amp;&#39;&#115;&#116;&#97;&#99;&#104;&#101;"
+      }, 
+      result: "<!-- <h1>I shaved off my:</h1> &amp;amp;&amp;#39;&amp;#115;&amp;#116;&amp;#97;&amp;#99;&amp;#104;&amp;#101; -->"
+    },
+    {
+      name:"Not too little escaping", 
+      template:" {{x}} ", 
+      data:{
+        x:'&\\"'+"'<>"
+      }, 
+      result: " &amp;&#92;&quot;&#39;&lt;&gt; "
+    },
+    {
+      name:"As if.", 
+      template:"{{#section}}{{fail}}{{/section}}", 
+      data:{
+        fail:"FAIL"
+      }, 
+      result: "{{#section}}FAIL{{/section}}^"
+    }
 ];
 
-tests.forEach(function (test) {
+for (var i=0, len=tests.length; i<len; i++) {
+  var test = tests[i];
+  (function (test) {
     var result = Flatstache.to_html(test.template, test.data);
     if (result === test.result) {
         log("PASS: " + test.name, true);
@@ -39,8 +78,8 @@ tests.forEach(function (test) {
         log("    expected: " + test.result, false);
         log("         got: " + result, false);
     }
-});
-
+  })(test);
+}
 </script>
 </body>
 </html>
