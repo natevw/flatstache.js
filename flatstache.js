@@ -13,8 +13,8 @@ var Flatstache = (function(){
         pub = {};
     pub.to_html = function (template, data) {
         return template
-            .replace(_re3, function (m, key) { return data[key] || ""; })
-            .replace(_re2, function (m, key) { return _escapeHTML(data[key] || ""); });
+            .replace(_re3, function (m, key) { return data[key] != null ? data[key] : ""; })
+            .replace(_re2, function (m, key) { return data[key] != null ? _escapeHTML(data[key]) : ""; });
     };
     return pub;
 })();
