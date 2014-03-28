@@ -18,3 +18,7 @@ var Flatstache = (function(){
     };
     return pub;
 })();
+
+if (typeof module === 'object') {
+    module.exports = Flatstache;
+}
